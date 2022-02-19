@@ -1,3 +1,7 @@
+use fetch_os::linux;
+
 fn main() {
-    println!("Hello, world!");
+    let os = linux::Linux {};
+    let os = os.name().unwrap();
+    println!("{}", os);
 }
