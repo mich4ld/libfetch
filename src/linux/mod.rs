@@ -35,9 +35,7 @@ impl Linux {
     }
 
     pub fn shell(&self) -> Option<String> {
-        let shell = var("SHELL").ok()?;
-
-        Some(shell)
+        var("SHELL").ok()
     }
 
     pub fn memory(&self) -> Option<Memory> {
@@ -91,6 +89,28 @@ impl Linux {
 
         let uptime = uptime.parse::<f64>().ok()? as usize;
         Some(uptime)
+    }
+
+    pub fn user(&self) -> Option<String> {
+        var("USER").ok()
+    }
+
+    pub fn hostname(&self) -> Option<String> {
+        let len = 64;
+        let mut hostname = std::vec![0; len];
+
+        let err = unsafe {
+            libc::gethostname(hostname.as_mut_ptr() as *mut i8, hostname.len().into())
+        };
+
+        if err != 0 {
+            return None;
+        }
+
+        let actual_len = hostname.iter().position(|&byte| { byte == 0 }).unwrap_or(hostname.len());
+        let hostname = &hostname[..actual_len];
+
+        String::from_utf8(hostname.to_vec()).ok()
     }
 }
 

@@ -4,6 +4,7 @@ fn main() {
     let os = linux::Linux {};
     let memory = os.memory().unwrap();
     let os_name = os.name().unwrap();
+    println!("{}@{}", os.user().unwrap(), os.hostname().unwrap());
     println!("os ~> {}", os_name);
     println!("kernel ~> {}", os.kernel().unwrap());
     println!("sh ~> {}", os.shell().unwrap());
