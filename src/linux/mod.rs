@@ -78,6 +78,20 @@ impl Linux {
 
         Some(memory)
     }
+
+    pub fn kernel(&self) -> Option<String> {
+        let kernel = fs::read_to_string("/proc/sys/kernel/osrelease").ok()?;
+        
+        Some(kernel.trim().to_string())
+    }
+
+    pub fn uptime(&self) -> Option<usize> {
+        let uptime_file = fs::read_to_string("/proc/uptime").ok()?;
+        let uptime = uptime_file.split_whitespace().next()?;
+
+        let uptime = uptime.parse::<f64>().ok()? as usize;
+        Some(uptime)
+    }
 }
 
 #[derive(Debug)]
