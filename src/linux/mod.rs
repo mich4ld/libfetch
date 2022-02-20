@@ -1,4 +1,5 @@
 use std::fs;
+
 pub struct Linux {}
 
 impl Linux {
@@ -57,6 +58,12 @@ impl Linux {
                 "MemAvailable:" => {
                     memory.available = entries[1].parse().ok()?;
                 }
+                "Buffers:" => {
+                    memory.buffers = entries[1].parse().ok()?;
+                }
+                "Cached:" => {
+                    memory.cached = entries[1].parse().ok()?;
+                }
                 _ => {
                     continue;
                 }
@@ -72,6 +79,8 @@ pub struct Memory {
     pub total: usize,
     pub available: usize,
     pub free: usize,
+    pub buffers: usize,
+    pub cached: usize,
 }
 
 impl Default for Memory {
@@ -80,6 +89,14 @@ impl Default for Memory {
             total: 0,
             available: 0,
             free: 0,
+            buffers: 0,
+            cached: 0,
         }  
+    }
+}
+
+impl Memory {
+    pub fn used(&self) -> usize {
+        self.total - self.free - self.buffers - self.cached
     }
 }
