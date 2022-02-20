@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, env::var};
 
 pub struct Linux {}
 
@@ -32,6 +32,12 @@ impl Linux {
         }
 
         Some(os_name)
+    }
+
+    pub fn shell(&self) -> Option<String> {
+        let shell = var("SHELL").ok()?;
+
+        Some(shell)
     }
 
     pub fn memory(&self) -> Option<Memory> {
