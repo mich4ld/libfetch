@@ -1,4 +1,4 @@
-# fetch-os
+# libfetch
 Simple but reliable library for fetch tools.
 
 ## Overview
