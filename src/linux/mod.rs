@@ -112,6 +112,10 @@ impl Linux {
 
         String::from_utf8(hostname.to_vec()).ok()
     }
+
+    pub fn desktop(&self) -> Option<String> {
+        var("XDG_CURRENT_DESKTOP").ok()
+    }
 }
 
 #[derive(Debug)]

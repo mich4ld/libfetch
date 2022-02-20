@@ -9,5 +9,6 @@ fn main() {
     println!("kernel ~> {}", os.kernel().unwrap());
     println!("sh ~> {}", os.shell().unwrap());
     println!("ram ~> {}mb / {}mb", memory.used() / 1024, memory.total / 1024);
+    println!("wm ~> {}", os.desktop().unwrap());
     println!("uptime ~> {}h", os.uptime().unwrap() / 60 / 60);
 }
