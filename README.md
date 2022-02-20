@@ -1,5 +1,5 @@
 <h2 align="center">
-  <img alt="logo" src="https://user-images.githubusercontent.com/43048524/154862542-47f070af-6e53-4cbf-aeb6-44cfbc1f3305.png" > </br>
+  <img alt="logo" src="https://user-images.githubusercontent.com/43048524/154870178-f8a20dac-7ff6-4332-8724-4c689ac03d4f.png" ></br></br>
   libfetch [work in progress]
 </h2>
 
