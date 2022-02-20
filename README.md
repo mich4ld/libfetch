@@ -17,5 +17,5 @@ info in more reliable way.
 
 ### Goals
 - avoid unsafe blocks (but not always possible);
-- no external programs calling;
+- avoid calling external programs;
 - multiplatform;
