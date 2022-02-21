@@ -1,6 +1,8 @@
 use crate::shared::procfs::Memory;
 
 pub trait Platform {
+    fn new() -> Self;
+
     fn name(&self) -> Option<String>;
 
     fn memory(&self) -> Option<Memory>;

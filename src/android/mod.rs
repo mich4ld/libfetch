@@ -1,9 +1,13 @@
 use std::{env::var, ffi::CStr, process::Command};
 use crate::{utils::exec, shared::{self, procfs::Memory}, platform::Platform};
 
-pub struct Android {}
+pub struct Android;
 
 impl Platform for Android {
+    fn new() -> Self {
+        Android
+    }
+
     fn name(&self) -> Option<String> {
         let mut getprop = Command::new("getprop");
         getprop.arg("ro.build.version.release");
@@ -36,7 +40,16 @@ impl Platform for Android {
     }
 
     fn uptime(&self) -> Option<usize> {
-        None
+        let mut sysinfo = unsafe { libc::sysinfo::from(std::mem::zeroed()) };
+        let err = unsafe { libc::sysinfo(&mut sysinfo) };
+
+        if err != 0 {
+            return None;
+        }
+
+        let uptime: usize = sysinfo.uptime.try_into().ok()?;
+
+        Some(uptime)
     }
 
     fn user(&self) -> Option<String> {

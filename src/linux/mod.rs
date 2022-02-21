@@ -1,9 +1,13 @@
 use std::{fs, env::var};
 use crate::{shared::{self, procfs::Memory}, platform::Platform};
 
-pub struct Linux {}
+pub struct Linux;
 
 impl Platform for Linux {
+    fn new() -> Self {
+        Linux
+    }
+
     fn name(&self) -> Option<String> {
         let mut os_name = String::new();
         let release_file = fs::read_to_string("/etc/os-release").ok()?;
