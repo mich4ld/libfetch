@@ -1,6 +1,5 @@
 use std::{env::var, ffi::CStr, process::Command};
-
-use crate::utils::exec;
+use crate::{utils::exec, shared::{self, procfs::Memory}};
 
 pub struct Android {}
 
@@ -28,11 +27,15 @@ impl Android {
         Some(release.to_string())
     }
 
-    pub fn memory(&self) {
-     // it's will be shared with Linux 
+    pub fn memory(&self) -> Option<Memory> {
+        shared::procfs::memory()
     }
 
     pub fn shell(&self) -> Option<String> {
         var("SHELL").ok()
+    }
+
+    pub fn desktop(&self) -> Option<String> {
+        None
     }
 }
