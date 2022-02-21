@@ -1,4 +1,4 @@
-use fetch_os::{Info, platform::Platform};
+use libfetch::{Info, platform::Platform};
 
 fn main() {
     let os = Info {};
