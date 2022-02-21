@@ -1,7 +1,7 @@
-use fetch_os::{linux, platform::Platform};
+use fetch_os::{Info, platform::Platform};
 
 fn main() {
-    let os = linux::Linux {};
+    let os = Info {};
 
     let os_name = os.name();
     let kernel = os.kernel();
