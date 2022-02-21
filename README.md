@@ -18,3 +18,8 @@ info in more reliable way.
 - avoid calling external programs;
 - multiplatform;
 - simple API;
+
+### Alternatives
+- <a href="https://github.com/Macchina-CLI/libmacchina">Macchina-CLI/libmacchina</a>
+- <a href="https://github.com/GuillaumeGomez/sysinfo">GuillaumeGomez/sysinfo</a>
+- <a href="https://github.com/FillZpp/sys-info-rs">FillZpp/sys-info-rs</a>
