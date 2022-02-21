@@ -1,3 +1,4 @@
+pub mod platform;
 pub mod utils;
 pub mod shared;
 pub mod linux;

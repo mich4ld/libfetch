@@ -1,10 +1,10 @@
 use std::{env::var, ffi::CStr, process::Command};
-use crate::{utils::exec, shared::{self, procfs::Memory}};
+use crate::{utils::exec, shared::{self, procfs::Memory}, platform::Platform};
 
 pub struct Android {}
 
-impl Android {
-    pub fn name(&self) -> Option<String> {
+impl Platform for Android {
+    fn name(&self) -> Option<String> {
         let mut getprop = Command::new("getprop");
         getprop.arg("ro.build.version.release");
         
@@ -13,7 +13,7 @@ impl Android {
         Some(format!("Android {}", release.trim()))
     }
 
-    pub fn kernel(&self) -> Option<String> {
+    fn kernel(&self) -> Option<String> {
         let mut utsname = unsafe { libc::utsname::from(std::mem::zeroed()) };
         let err = unsafe { 
             libc::uname(&mut utsname)  
@@ -27,15 +27,27 @@ impl Android {
         Some(release.to_string())
     }
 
-    pub fn memory(&self) -> Option<Memory> {
+    fn memory(&self) -> Option<Memory> {
         shared::procfs::memory()
     }
 
-    pub fn shell(&self) -> Option<String> {
+    fn shell(&self) -> Option<String> {
         var("SHELL").ok()
     }
 
-    pub fn desktop(&self) -> Option<String> {
+    fn uptime(&self) -> Option<usize> {
+        None
+    }
+
+    fn user(&self) -> Option<String> {
+        None
+    }
+
+    fn hostname(&self) -> Option<String> {
+        None
+    }
+
+    fn desktop(&self) -> Option<String> {
         None
     }
 }

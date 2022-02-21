@@ -1,10 +1,10 @@
 use std::{fs, env::var};
-use crate::shared::{self, procfs::Memory};
+use crate::{shared::{self, procfs::Memory}, platform::Platform};
 
 pub struct Linux {}
 
-impl Linux {
-    pub fn name(&self) -> Option<String> {
+impl Platform for Linux {
+    fn name(&self) -> Option<String> {
         let mut os_name = String::new();
         let release_file = fs::read_to_string("/etc/os-release").ok()?;
 
@@ -35,21 +35,21 @@ impl Linux {
         Some(os_name)
     }
 
-    pub fn shell(&self) -> Option<String> {
+    fn shell(&self) -> Option<String> {
         var("SHELL").ok()
     }
 
-    pub fn memory(&self) -> Option<Memory> {
+    fn memory(&self) -> Option<Memory> {
         shared::procfs::memory()
     }
 
-    pub fn kernel(&self) -> Option<String> {
+    fn kernel(&self) -> Option<String> {
         let kernel = fs::read_to_string("/proc/sys/kernel/osrelease").ok()?;
         
         Some(kernel.trim().to_string())
     }
 
-    pub fn uptime(&self) -> Option<usize> {
+    fn uptime(&self) -> Option<usize> {
         let uptime_file = fs::read_to_string("/proc/uptime").ok()?;
         let uptime = uptime_file.split_whitespace().next()?;
 
@@ -57,11 +57,11 @@ impl Linux {
         Some(uptime)
     }
 
-    pub fn user(&self) -> Option<String> {
+    fn user(&self) -> Option<String> {
         var("USER").ok()
     }
 
-    pub fn hostname(&self) -> Option<String> {
+    fn hostname(&self) -> Option<String> {
         let len = 64;
         let mut hostname = std::vec![0; len];
 
@@ -79,7 +79,7 @@ impl Linux {
         String::from_utf8(hostname.to_vec()).ok()
     }
 
-    pub fn desktop(&self) -> Option<String> {
+    fn desktop(&self) -> Option<String> {
         var("XDG_CURRENT_DESKTOP").ok()
     }
 }
