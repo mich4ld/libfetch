@@ -15,3 +15,10 @@ mod android;
 
 #[cfg(target_os = "android")]
 pub type Info = android::Android;
+
+
+#[cfg(target_os = "freebsd")]
+pub mod freebsd;
+
+#[cfg(target_os="freebsd")]
+pub type Info = freebsd::FreeBSD;

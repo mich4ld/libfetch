@@ -18,17 +18,7 @@ impl Platform for Android {
     }
 
     fn kernel(&self) -> Option<String> {
-        let mut utsname = unsafe { libc::utsname::from(std::mem::zeroed()) };
-        let err = unsafe { 
-            libc::uname(&mut utsname)  
-        };
-
-        if err == -1 {
-            return None;
-        }
-        
-        let release = unsafe { CStr::from_ptr(utsname.release.as_ptr()) }.to_str().ok()?;
-        Some(release.to_string())
+        shared::libc_kernel()
     }
 
     fn memory(&self) -> Option<Memory> {
@@ -53,10 +43,7 @@ impl Platform for Android {
     }
 
     fn user(&self) -> Option<String> {
-        let login = unsafe { libc::getlogin() };
-        let login_str = unsafe { CStr::from_ptr(login) }.to_str().ok()?;
-
-        Some(String::from(login_str))
+        shared::libc_user()
     }
 
     fn hostname(&self) -> Option<String> {
