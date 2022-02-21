@@ -44,7 +44,21 @@ impl Platform for Android {
     }
 
     fn hostname(&self) -> Option<String> {
-        None
+        let len = 64;
+        let mut hostname = std::vec![0; len];
+
+        let err = unsafe {
+            libc::gethostname(hostname.as_mut_ptr() as *mut u8, hostname.len().into())
+        };
+
+        if err != 0 {
+            return None;
+        }
+
+        let actual_len = hostname.iter().position(|&byte| { byte == 0 }).unwrap_or(hostname.len());
+        let hostname = &hostname[..actual_len];
+
+        String::from_utf8(hostname.to_vec()).ok()   
     }
 
     fn desktop(&self) -> Option<String> {
