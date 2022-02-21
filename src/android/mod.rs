@@ -53,7 +53,10 @@ impl Platform for Android {
     }
 
     fn user(&self) -> Option<String> {
-        None
+        let login = unsafe { libc::getlogin() };
+        let login_str = unsafe { CStr::from_ptr(login) }.to_str().ok()?;
+
+        Some(String::from(login_str))
     }
 
     fn hostname(&self) -> Option<String> {
@@ -61,7 +64,7 @@ impl Platform for Android {
         let mut hostname = std::vec![0; len];
 
         let err = unsafe {
-            libc::gethostname(hostname.as_mut_ptr() as *mut u8, hostname.len().into())
+            libc::gethostname(hostname.as_mut_ptr() as *mut i8, hostname.len().into())
         };
 
         if err != 0 {
