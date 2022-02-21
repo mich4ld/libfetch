@@ -17,3 +17,4 @@ info in more reliable way.
 - avoid unsafe blocks (but not always possible);
 - avoid calling external programs;
 - multiplatform;
+- simple API;
