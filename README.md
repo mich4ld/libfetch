@@ -23,3 +23,4 @@ info in more reliable way.
 - <a href="https://github.com/Macchina-CLI/libmacchina">Macchina-CLI/libmacchina</a>
 - <a href="https://github.com/GuillaumeGomez/sysinfo">GuillaumeGomez/sysinfo</a>
 - <a href="https://github.com/FillZpp/sys-info-rs">FillZpp/sys-info-rs</a>
+- <a href="https://github.com/unrelentingtech/systemstat">unrelentingtech/systemstat</a>
