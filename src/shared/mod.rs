@@ -2,6 +2,7 @@ use std::{ffi::CStr, fs};
 
 pub mod procfs;
 
+#[cfg(not(target_os = "android"))]
 pub fn libc_hostname() -> Option<String> {
     let len = 64;
     let mut hostname = std::vec![0; len];
