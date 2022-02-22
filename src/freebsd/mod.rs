@@ -1,9 +1,15 @@
 use std::env::var;
-use crate::{platform::Platform, shared::{self, procfs::Memory}};
+use crate::{platform::Platform, utils, shared::{self, procfs::Memory}};
 extern crate sysctl;
 use sysctl::Sysctl;
 
 pub struct FreeBSD;
+
+#[derive(Debug)]
+#[repr(C)]
+struct Boottime {
+    sec: libc::c_int,
+}
 
 impl Platform for FreeBSD {
     fn new() -> Self {
@@ -36,7 +42,18 @@ impl Platform for FreeBSD {
 
     fn uptime(&self) -> Option<usize> {
         let result = sysctl::Ctl::new("kern.boottime").ok()?;
-        println!("FREEBSD uptime: {}", result.value_string().unwrap_or("nothing".to_string()));
+        let val_enum = result.value().ok()?;
+
+        if let sysctl::CtlValue::Struct(val) = val_enum {
+            let val_ptr: *const u8 = val.as_ptr();
+            let struct_ptr: *const Boottime = val_ptr as *const Boottime;
+            let struct_ref: &Boottime = unsafe { &*struct_ptr };
+
+            let now = utils::get_now()?;
+            let uptime = now = struct_ref.sec as u64;
+
+            return Some(uptime as usize);
+        }
 
         None
     }

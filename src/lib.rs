@@ -17,6 +17,7 @@ mod android;
 pub type Info = android::Android;
 
 
+// FREEBSD:
 #[cfg(target_os = "freebsd")]
 pub mod freebsd;
 
