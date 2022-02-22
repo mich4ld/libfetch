@@ -15,5 +15,5 @@ fn main() {
     println!("os ~> {}", os_name.unwrap_or(unknown.clone()));
     println!("kernel ~> {}", kernel.unwrap_or(unknown.clone()));
     println!("uptime ~> {}", uptime.unwrap_or(0));
-    println!("ram ~> {} mb / {} mb", memory.used() / 1024, memory.total / 1024);
+    println!("ram ~> {} mb / {} mb", memory.used / 1024, memory.total / 1024);
 }
