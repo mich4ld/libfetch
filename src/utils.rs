@@ -1,4 +1,4 @@
-use std::{process::Command, time::SystemTime};
+use std::{process::Command};
 
 #[cfg(target_os = "freebsd")]
 use std::time::{SystemTime, UNIX_EPOCH};

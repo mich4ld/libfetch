@@ -50,9 +50,10 @@ impl Platform for FreeBSD {
             let struct_ref: &Boottime = unsafe { &*struct_ptr };
 
             let now = utils::get_now()?;
-            let uptime = now = struct_ref.sec as u64;
+            let uptime = now - struct_ref.sec as u64;
+            let uptime: usize = uptime.try_into().ok()?;
 
-            return Some(uptime as usize);
+            return Some(uptime);
         }
 
         None
