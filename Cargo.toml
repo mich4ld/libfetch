@@ -1,7 +1,12 @@
 [package]
 name = "libfetch"
+description = "Simple but reliable library for fetch tools"
+repository = "https://github.com/mich4ld/libfetch"
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
+keywords = ["sysinfo", "info", "neofetch"]
+categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

@@ -6,6 +6,8 @@
 <p align="center">
   Simple but reliable library for fetch tools written in Rust 🦀.
 </p>
+
+#### Note: it is experimental and early version of crate
  
 ### Overview
 It's hard to create a cool fetch tool for Linux, so this library tries to simplify the process. The library does not call any other programs, such as "uname -n" or "uptime". It tries to fetch the operating system information in a more reliable way.
