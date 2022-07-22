@@ -1,6 +1,6 @@
 <h2 align="center">
   <img alt="logo" src="https://user-images.githubusercontent.com/43048524/154870178-f8a20dac-7ff6-4332-8724-4c689ac03d4f.png" ></br></br>
-  libfetch
+  os-fetchlib
 </h2>
 
 <p align="center">
